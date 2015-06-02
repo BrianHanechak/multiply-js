@@ -1,0 +1,11 @@
+{
+  "name": "multiplication-table",
+  "version": "0.1.0",
+  "dependencies": {
+    "jquery": "1.11.3"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.2",
+    "grunt-connect": "^0.2.0"
+  }
+}
