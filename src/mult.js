@@ -27,7 +27,6 @@ $(document).ready(function() {
 			col.attr("col", colVal.toString());
 			col.addClass("unpressed");
 			col.addClass("noselect");
-			col.text(rowVal.toString() + " X " + colVal.toString());
 			col.click(function() { toggle($(this)); });
 			col.text(rowVal.toString() + " X " + colVal.toString());
 			row.append(col);
