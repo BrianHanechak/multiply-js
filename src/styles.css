@@ -1,6 +1,6 @@
 .pressed {
 	font-weight: bold;
-	background-color: white;
+	background-color: yellow;
 }
 
 .unpressed {
@@ -13,6 +13,36 @@
 	text-align: center;
 	color: black;
 	border: 1px solid black;
+}
+
+.button {
+	height: 40px;
+	text-align: center;
+	color: black;
+	font-weight: bold;
+	border: 1px solid black;
+}
+
+.challenge1 {
+	background-color: lightgreen;
+}
+
+.challenge2 {
+	background-color: lightyellow;
+}
+
+.challenge3 {
+	background-color: pink;
+}
+
+.success {
+	color: darkgreen;
+	font-weight: bold;
+}
+
+.challengeCell {
+	border: 1px solid black;
+	text-align: center;
 }
 
 body {
