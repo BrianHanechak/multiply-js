@@ -1,16 +1,14 @@
-function toggle(item, rowVal, colVal) {
+function toggle(item) {
+	var r = parseInt(item.attr("row"));
+	var c = parseInt(item.attr("col"));
 	if (item.hasClass("pressed")) {
 		item.removeClass("pressed");
-		item.text(rowVal.toString() + " X " + colVal.toString());
+		item.text(r.toString() + " X " + c.toString());
 	} 
 	else {
 		item.addClass("pressed");
-		item.text((rowVal * colVal).toString());
+		item.text((r * c).toString());
 	}
-}
-
-function makeToggleFunction(rowVal, colVal) {
-	return function(item) { toggle(item, rowVal, colVal); }
 }
 
 $(document).ready(function() {
@@ -23,8 +21,10 @@ $(document).ready(function() {
 			var col = $('<td></td>').addClass('cell');
 			var colVal = colNum + 1;
 			col.attr("id", "C" + rowVal.toString() + "_" + colVal.toString())
+			col.attr("row", rowVal.toString());
+			col.attr("col", colVal.toString());
 			col.text(rowVal.toString() + " X " + colVal.toString());
-			col.click(function() { makeToggleFunction(rowVal, colVal)($(this)); });
+			col.click(function() { toggle($(this)); });
 			col.text(rowVal.toString() + " X " + colVal.toString());
 			row.append(col);
 		}
