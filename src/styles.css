@@ -1,0 +1,9 @@
+.pressed {
+	font-weight: bold;
+}
+
+.cell {
+	width: 40px;
+	height: 40px;
+	text-align: center;
+}
