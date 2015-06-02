@@ -23,7 +23,6 @@ $(document).ready(function() {
 			col.attr("id", "C" + rowVal.toString() + "_" + colVal.toString())
 			col.attr("row", rowVal.toString());
 			col.attr("col", colVal.toString());
-			col.text(rowVal.toString() + " X " + colVal.toString());
 			col.click(function() { toggle($(this)); });
 			col.text(rowVal.toString() + " X " + colVal.toString());
 			row.append(col);
