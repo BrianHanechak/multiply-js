@@ -3,10 +3,12 @@ function toggle(item) {
 	var c = parseInt(item.attr("col"));
 	if (item.hasClass("pressed")) {
 		item.removeClass("pressed");
+		item.addClass("unpressed");
 		item.text(r.toString() + " X " + c.toString());
 	} 
 	else {
 		item.addClass("pressed");
+		item.removeClass("unpressed");
 		item.text((r * c).toString());
 	}
 }
@@ -23,6 +25,8 @@ $(document).ready(function() {
 			col.attr("id", "C" + rowVal.toString() + "_" + colVal.toString())
 			col.attr("row", rowVal.toString());
 			col.attr("col", colVal.toString());
+			col.addClass("unpressed");
+			col.addClass("noselect");
 			col.text(rowVal.toString() + " X " + colVal.toString());
 			col.click(function() { toggle($(this)); });
 			col.text(rowVal.toString() + " X " + colVal.toString());

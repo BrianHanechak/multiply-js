@@ -1,9 +1,29 @@
 .pressed {
 	font-weight: bold;
+	background-color: white;
+}
+
+.unpressed {
+	background-color: lightgray;
 }
 
 .cell {
-	width: 40px;
-	height: 40px;
+	width: 50px;
+	height: 50px;
 	text-align: center;
+	color: black;
+	border: 1px solid black;
+}
+
+body {
+	background-color: gray;
+}
+
+.noselect {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
