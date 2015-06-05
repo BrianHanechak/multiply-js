@@ -8,6 +8,21 @@
 	background-color: lightgray;
 }
 
+.toggle {
+	text-align: center;
+	color: black;
+	border: 1px solid black;
+	background-color: lightgray;
+}
+
+.rowToggle {
+	width: 40px;
+}
+
+.colToggle {
+	height: 40px;
+}
+
 .cell {
 	width: 80px;
 	height: 80px;
