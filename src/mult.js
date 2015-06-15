@@ -1,5 +1,12 @@
 /// <reference path="../typings/jquery/jquery.d.ts"/>
+/* ****************************************************
+ * Size of table
+ * Only square tables allowed with this architecture. 
+ * ****************************************************/
+var size = 9;
 
+
+/** Toggle Button **/
 function toggle(item) {
 	var r = parseInt(item.attr("row"));
 	var c = parseInt(item.attr("col"));
@@ -15,8 +22,6 @@ function toggle(item) {
 	}
 	validateChallenge();
 }
-
-var size = 9;
 
 function toggleRow(item) {
 	var r = parseInt(item.attr("row"));
@@ -62,6 +67,7 @@ function clear() {
 	$(".challengeCell").text("Exploration mode").removeClass("success").removeClass("challenge1").removeClass("challenge2").removeClass("challenge3");
 }
 
+/* validiateChallenge only works for "Find all" type challenges */
 function validateChallenge() {
 	if (currentChallenge != null) {
 		var allGood = true;
