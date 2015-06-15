@@ -123,6 +123,10 @@ var challenges = [
 		{
 			"text": "Find all the numbers bigger than 47",
 			"validation": function(x, y) { var p = x * y; return p > 47; }
+		},
+		{
+			"text": "Find all the numbers between 30 and 39, inclusive",
+			"validation": function(x, y) { var p = x * y; return (p >= 30 && p < 40); }
 		}
 	],
 	[
@@ -141,6 +145,10 @@ var challenges = [
 		{
 			"text": "Find all the numbers with the digit '5'",
 			"validation": function(x, y) { var p = x * y; while (p > 0) { if (p%10 == 5) return true; p = Math.floor(p/10); } return false; }
+		},
+		{
+			"text": "Find all the numbers with a ones digit of '1' or '9'",
+			"validation": function(x, y) { var p = x * y; return (p%10 == 1 || p%10 == 9)}
 		},
 		{
 			"text": "Find all the numbers with the same digit more than once",
