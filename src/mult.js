@@ -1,3 +1,5 @@
+/// <reference path="../typings/jquery/jquery.d.ts"/>
+
 function toggle(item) {
 	var r = parseInt(item.attr("row"));
 	var c = parseInt(item.attr("col"));
@@ -14,8 +16,41 @@ function toggle(item) {
 	validateChallenge();
 }
 
-var currentChallenge = null;
 var size = 9;
+
+function toggleRow(item) {
+	var r = parseInt(item.attr("row"));
+	var allPressed = true;
+	for (var x = 1; x <= size; x++) {
+		if (!$("#C" + r + "_" + x).hasClass("pressed")) {
+			allPressed = false;
+		}
+	}
+	var shouldPress = !allPressed;
+	for (var x = 1; x <= size; x++) {
+		if (shouldPress != $("#C" + r + "_" + x).hasClass("pressed")) {
+			toggle($("#C" + r + "_" + x));
+		}
+	}
+}
+
+function toggleCol(item) {
+	var c = parseInt(item.attr("col"));
+	var allPressed = true;
+	for (var x = 1; x <= size; x++) {
+		if (!$("#C" + x + "_" + c).hasClass("pressed")) {
+			allPressed = false;
+		}
+	}
+	var shouldPress = !allPressed;
+	for (var x = 1; x <= size; x++) {
+		if (shouldPress != $("#C" + x + "_" + c).hasClass("pressed")) {
+			toggle($("#C" + x + "_" + c));
+		}
+	}
+}
+
+var currentChallenge = null;
 
 function clear() {
 	for (var x = 1; x <= size; x++) {
@@ -153,9 +188,29 @@ function generateChallenge(difficulty) {
 
 $(document).ready(function() {
 	var table = $('<table></table>').addClass('mainTable');
+	var colToggleRow = $('<tr></tr>').addClass('mainRow');
+	var upperLeftCell = $('<td></td>');
+	colToggleRow.append(upperLeftCell);
+	for (var colNum = 0; colNum < size; colNum++) {
+		var colToggle = $("<td></td>").addClass('toggle').addClass('colToggle');
+		var colVal = colNum + 1;
+		colToggle.attr("id", "COL" + colVal.toString());
+		colToggle.attr("col", colVal.toString());
+		colToggle.click(function() { toggleCol($(this)); });
+		colToggleRow.append(colToggle);
+	}
+	table.append(colToggleRow);
+	
 	for (var rowNum = 0; rowNum < size; rowNum++) {
 		var row = $('<tr></tr>').addClass('mainRow');
 		var rowVal = rowNum + 1;
+		
+		var rowToggle = $("<td></td>").addClass('toggle').addClass('rowToggle');
+		rowToggle.attr("id", "ROW" + rowVal.toString());
+		rowToggle.attr("row", rowVal.toString());
+		rowToggle.click(function() { toggleRow($(this)); });
+		row.append(rowToggle);
+		
 		for (var colNum = 0; colNum < size; colNum++) {
 			var col = $('<td></td>').addClass('cell');
 			var colVal = colNum + 1;
@@ -171,6 +226,7 @@ $(document).ready(function() {
 		table.append(row);
 	}
 	var challengeRow = $('<tr></tr>').addClass('challengeRow');
+	challengeRow.append($('<td></td>'));
 	var challengeCell = $('<td></td>').attr('colspan', size - 1).addClass('challengeCell').addClass('noselect');
 	challengeCell.text("Exploration mode");
 	challengeRow.append(challengeCell);
@@ -180,6 +236,7 @@ $(document).ready(function() {
 	challengeRow.append(clearCell);
 	table.append(challengeRow);
 	var challengeButtonRow = $('<tr></tr>').addClass('challengeButtonRow');
+	challengeButtonRow.append($('<td></td>'));
 	var buttonSize1 = Math.floor(size / 3);
 	var challengeButtonCell1 = $('<td></td>').attr('colspan', buttonSize1).addClass('noselect').addClass('button').addClass('challengeButton').addClass('challenge1');
 	challengeButtonCell1.text('Easy challenge');
