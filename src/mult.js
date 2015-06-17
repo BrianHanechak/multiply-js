@@ -65,6 +65,7 @@ function clear() {
 	}
 
 	$(".challengeCell").text("Exploration mode").removeClass("success").removeClass("challenge1").removeClass("challenge2").removeClass("challenge3");
+	currentChallenge = null;
 }
 
 /* validiateChallenge only works for "Find all" type challenges */
@@ -194,9 +195,9 @@ var challenges = [
 
 /* Callback for challenge button clicked */
 function generateChallenge(difficulty) {
+	clear();
 	var challengeSet = challenges[difficulty];
 	currentChallenge = challengeSet[Math.floor(Math.random()*challengeSet.length)];
-	clear();
 	$(".challengeCell").addClass('challenge' + (difficulty+1).toString());
 	validateChallenge();
 }
