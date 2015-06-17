@@ -23,12 +23,25 @@
 	height: 40px;
 }
 
+.rowToggle, .colToggle {
+    border-radius: 10px;
+}
+
+.rowToggle, .colToggle, .cell {
+	cursor: pointer;
+}
+
+.rowToggle:hover, .colToggle:hover, .cell:hover {
+    background-color: white;
+}
+
 .cell {
 	width: 80px;
 	height: 80px;
 	text-align: center;
 	color: black;
 	border: 1px solid black;
+	cursor: pointer;
 }
 
 .button {
