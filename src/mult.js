@@ -1,5 +1,12 @@
 /// <reference path="../typings/jquery/jquery.d.ts"/>
+/* ****************************************************
+ * Size of table
+ * Only square tables allowed with this architecture. 
+ * ****************************************************/
+var size = 9;
 
+
+/** Toggle Button **/
 function toggle(item) {
 	var r = parseInt(item.attr("row"));
 	var c = parseInt(item.attr("col"));
@@ -15,8 +22,6 @@ function toggle(item) {
 	}
 	validateChallenge();
 }
-
-var size = 9;
 
 function toggleRow(item) {
 	var r = parseInt(item.attr("row"));
@@ -62,6 +67,7 @@ function clear() {
 	$(".challengeCell").text("Exploration mode").removeClass("success").removeClass("challenge1").removeClass("challenge2").removeClass("challenge3");
 }
 
+/* validiateChallenge only works for "Find all" type challenges */
 function validateChallenge() {
 	if (currentChallenge != null) {
 		var allGood = true;
@@ -123,6 +129,10 @@ var challenges = [
 		{
 			"text": "Find all the numbers bigger than 47",
 			"validation": function(x, y) { var p = x * y; return p > 47; }
+		},
+		{
+			"text": "Find all the numbers between 30 and 39, inclusive",
+			"validation": function(x, y) { var p = x * y; return (p >= 30 && p < 40); }
 		}
 	],
 	[
@@ -141,6 +151,10 @@ var challenges = [
 		{
 			"text": "Find all the numbers with the digit '5'",
 			"validation": function(x, y) { var p = x * y; while (p > 0) { if (p%10 == 5) return true; p = Math.floor(p/10); } return false; }
+		},
+		{
+			"text": "Find all the numbers with a ones digit of '1' or '9'",
+			"validation": function(x, y) { var p = x * y; return (p%10 == 1 || p%10 == 9)}
 		},
 		{
 			"text": "Find all the numbers with the same digit more than once",
@@ -178,6 +192,7 @@ var challenges = [
 	]
 ];
 
+/* Callback for challenge button clicked */
 function generateChallenge(difficulty) {
 	var challengeSet = challenges[difficulty];
 	currentChallenge = challengeSet[Math.floor(Math.random()*challengeSet.length)];
@@ -186,11 +201,16 @@ function generateChallenge(difficulty) {
 	validateChallenge();
 }
 
+/********************
+ ** Initialization **
+ ********************/
 $(document).ready(function() {
 	var table = $('<table></table>').addClass('mainTable');
 	var colToggleRow = $('<tr></tr>').addClass('mainRow');
 	var upperLeftCell = $('<td></td>');
 	colToggleRow.append(upperLeftCell);
+	
+	/* Generate the column select buttons */
 	for (var colNum = 0; colNum < size; colNum++) {
 		var colToggle = $("<td></td>").addClass('toggle').addClass('colToggle');
 		var colVal = colNum + 1;
@@ -201,6 +221,7 @@ $(document).ready(function() {
 	}
 	table.append(colToggleRow);
 	
+	/* Generate the multiplication table and row selection buttons */
 	for (var rowNum = 0; rowNum < size; rowNum++) {
 		var row = $('<tr></tr>').addClass('mainRow');
 		var rowVal = rowNum + 1;
@@ -225,6 +246,7 @@ $(document).ready(function() {
 		}
 		table.append(row);
 	}
+	
 	var challengeRow = $('<tr></tr>').addClass('challengeRow');
 	challengeRow.append($('<td></td>'));
 	var challengeCell = $('<td></td>').attr('colspan', size - 1).addClass('challengeCell').addClass('noselect');
@@ -237,19 +259,26 @@ $(document).ready(function() {
 	table.append(challengeRow);
 	var challengeButtonRow = $('<tr></tr>').addClass('challengeButtonRow');
 	challengeButtonRow.append($('<td></td>'));
+	
+	/** This is the code I want to make general */
 	var buttonSize1 = Math.floor(size / 3);
+	
 	var challengeButtonCell1 = $('<td></td>').attr('colspan', buttonSize1).addClass('noselect').addClass('button').addClass('challengeButton').addClass('challenge1');
 	challengeButtonCell1.text('Easy challenge');
 	challengeButtonCell1.click(function() { generateChallenge(0); } );
 	challengeButtonRow.append(challengeButtonCell1);
+	
 	var challengeButtonCell2 = $('<td></td>').attr('colspan', size - 2 * buttonSize1).addClass('noselect').addClass('button').addClass('challengeButton').addClass('challenge2');
 	challengeButtonCell2.text('Medium challenge');
 	challengeButtonCell2.click(function() { generateChallenge(1); } );
 	challengeButtonRow.append(challengeButtonCell2);
+	
 	var challengeButtonCell3 = $('<td></td>').attr('colspan', buttonSize1).addClass('noselect').addClass('button').addClass('challengeButton').addClass('challenge3');
 	challengeButtonCell3.text('Hard challenge');
 	challengeButtonCell3.click(function() { generateChallenge(2); } );
 	challengeButtonRow.append(challengeButtonCell3);
 	table.append(challengeButtonRow);
+	
+	/* This is where we actually change the webpage. */
 	$("body").append(table);
 })
